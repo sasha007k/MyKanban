@@ -12,5 +12,7 @@ namespace Domain.Entities
 
         public User User { get; set; }
         public int UserId { get; set; }
+
+        public ICollection<Issue> Issues { get; set; } = new HashSet<Issue>();
     }
 }
