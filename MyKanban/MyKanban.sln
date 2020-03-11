@@ -3,13 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyKanban", "MyKanban\MyKanban.csproj", "{4FB0BB23-0128-4A85-8574-658AA00C72BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyKanban", "MyKanban\MyKanban.csproj", "{4FB0BB23-0128-4A85-8574-658AA00C72BF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B63839C6-ADB2-46A8-89E4-28D710730526} = {B63839C6-ADB2-46A8-89E4-28D710730526}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{B63839C6-ADB2-46A8-89E4-28D710730526}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{B63839C6-ADB2-46A8-89E4-28D710730526}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{1ECCD1C6-3D61-4849-A6ED-2D622D0F7A39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{1ECCD1C6-3D61-4849-A6ED-2D622D0F7A39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{AA51DD77-63BE-4EF6-9A45-51789F34682C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{AA51DD77-63BE-4EF6-9A45-51789F34682C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

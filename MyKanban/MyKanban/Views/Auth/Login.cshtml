@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<body class="login">
+    <section class="container-fluid bg">
+        <section class="row justify-content-center">
+            <section class="col-12 col-sm-6 col-md-6">
+                <form class="form-container" method="post" action="/Auth/Login">
+                    <div class="md-form">
+                        <i class="fas fa-envelope prefix"></i>
+                        <input style="padding-left:6px" type="email" id="inputValidationEx" name="UserName" class="form-control validate">
+                        <label for="inputValidationEx" data-error="wrong">Type your email</label>
+                    </div>
+                    <div class="md-form">
+                        <i class="fas fa-lock prefix"></i>
+                        <input style="padding-left:6px" type="password" id="inputValidationEx2" name="Password" class="form-control validate">
+                        <label for="inputValidationEx2" data-error="wrong">Type your password</label>
+                    </div>
+                    <div class="md-form">
+                        <button style="margin-bottom:18px" type="submit" class="btn btn-cyan btn-block">Sign in</button>
+                        <div class="form-group">
+                            <p>
+                                <a href="/Auth/Register">Register as a new user</a>
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </section>
+    </section>
+</body>

@@ -1,0 +1,36 @@
+﻿@model Application.Models.RegisterModel;
+@{
+    ViewData["Title"] = "Register";
+}
+
+<body class="login">
+    <section class="container-fluid bg">
+        <section class="row justify-content-center">
+            <section class="col-12 col-sm-6 col-md-6">
+                <form class="form-container" method="post" action="/Auth/Register">
+                    <div class="md-form">
+                        <i class="fas fa-envelope prefix"></i>
+                        <input style="padding-left:4px" type="email" id="inputValidationEx" name="Email" class="form-control validate">
+                        <label for="inputValidationEx" data-error="wrong">Type your email</label>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="md-form">
+                        <i class="fas fa-lock prefix"></i>
+                        <input style="padding-left:4px" type="password" id="inputValidationEx2" name="Password" class="form-control validate">
+                        <label for="inputValidationEx2" data-error="wrong">Type your password</label>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="md-form">
+                        <i class="fas fa-lock prefix"></i>
+                        <input style="padding-left:4px" type="password" id="inputValidationEx3" name="PasswordConfirm" class="form-control validate">
+                        <label for="inputValidationEx3" data-error="wrong">Confirm your password</label>
+                        <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
+                    </div>
+                    <div class="md-form">
+                        <button type="submit" class="btn btn-cyan btn-block">Register</button>
+                    </div>
+                </form>
+            </section>
+        </section>
+    </section>
+</body>

@@ -1,27 +1,45 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    @*╭∩╮( ͡° ʖ̯ ͡°)╭∩╮ go away *@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MyKanban</title>
+    <title>@ViewData["Title"]</title>
 
+    @*tabel css*@
+    <link rel="stylesheet" href="~/css/tabel.min.css" />
+    <link rel="stylesheet" href="~/css/tabel.css" asp-append-version="true" />
+    <link rel="stylesheet" asp-append-version="true" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet' asp-append-version="true" href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+    <link rel='stylesheet' asp-append-version="true" href='https://fonts.googleapis.com/css?family=Arbutus+Slab'>
+    <link rel='stylesheet' asp-append-version="true" href='https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.css'>
+    @*tabel css*@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.min.css" />
+        <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/Chosen/chosen.min.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/mdb.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MyKanban</a>
+                <h3 class="navbar-brand" asp-area="">
+                    <a class="nav-link text-light" asp-area="" asp-controller="Project" asp-action="AllProjects">MyKanban</a>
+                </h3>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -29,32 +47,57 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="User" asp-action="Profile">Profile</a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link btn btn-cyan btn-sm" id="newprj" asp-area="" asp-controller="Project" asp-action="New">New project</a>
                         </li>
+                        <li>
+                            <a class="nav-link inactiveLink" asp-area="" asp-controller="" asp-action=""><i class="fas fa-sun mdb-gallery-view-icon fa-spin fa-"></i></a>
+                        </li>
+                        <ul class="nav navbar-nav ml-auto">
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                <li>
+                                    <a class="nav-link" asp-area="" asp-controller="Auth" asp-action="Register">Register</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" asp-area="" asp-controller="Auth" asp-action="Login">Login</a>
+                                </li>
+                            }
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li>
+                                    <a class="nav-link inactiveLink" asp-area="" asp-controller="" asp-action=""><i class="fas fa-poo mdb-gallery-view-icon fa-1x"></i></a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" asp-area="" asp-controller="Auth" asp-action="SignOut">SignOut</a>
+                                </li>
+                            }
+                        </ul>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
-        <partial name="_CookieConsentPartial" />
+        @*<partial name="_CookieConsentPartial" />*@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - MyKanban - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="container" id="foot">
+            &copy; MyKanban.com
         </div>
     </footer>
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/lib/jquery/dist/chosen.jquery.min.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
@@ -69,9 +112,18 @@
                 crossorigin="anonymous"
                 integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
         </script>
+        <script src="~/lib/jquery/dist/chosen.jquery.min.js"></script>
     </environment>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
+    @*js tabel*@
+    <script src="~/js/tabel.min.js" asp-append-version="true"></script>
+    <script src="~/js/tabel.js" asp-append-version="true"></script>
+    @*<script asp-append-version="true" src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>*@
+    <script asp-append-version="true" src='https://cdnjs.cloudflare.com/ajax/libs/spectrum/1.8.0/spectrum.min.js'></script>
+    @*js tabel*@
+    <script type="text/javascript" src="~/js/popper.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/mdb.min.js"></script>
+    <script type="text/javascript"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
