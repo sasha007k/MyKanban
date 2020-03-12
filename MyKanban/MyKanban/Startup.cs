@@ -68,7 +68,7 @@ namespace MyKanban
 
             //---Applying Services
             services.AddScoped<IAuthService, AuthService>();
-            //services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserService, UserService>();
             //services.AddScoped<IAdminService, AdminService>();
             //services.AddScoped<IProjectService, ProjectService>();
             //services.AddScoped<IIssueService, IssueService>();
