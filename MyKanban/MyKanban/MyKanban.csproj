@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Issue\" />
-    <Folder Include="Views\User\" />
     <Folder Include="Views\Project\" />
   </ItemGroup>
 
