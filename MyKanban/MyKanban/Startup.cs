@@ -75,7 +75,11 @@ namespace MyKanban
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app,
+                              IHostingEnvironment env,
+                              UserManager<User> usermanager,
+                              RoleManager<IdentityRole> rolemanager,
+                              KanbanContext context)
         {
             if (env.IsDevelopment())
             {
@@ -83,20 +87,21 @@ namespace MyKanban
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
+            //DataInitializer.SeedData(usermanager, rolemanager, context).Wait();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    name: "Default",
+                    template: "{controller}/{action}/{id?}",
+                    defaults: new { controller = "Auth", action = "Login" });
             });
         }
     }
