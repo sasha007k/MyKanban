@@ -1,0 +1,64 @@
+@model Application.Models.IssueAndSearchModel;
+
+@{
+    ViewData["Title"] = "New task";
+}
+
+
+
+<form asp-controller="Issue" asp-action="CreateNewIssue" asp-route-projectId="@Model.ProjectId">
+    <div class="cotainer">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">New task</div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label asp-for="IssueModel.Name">Name</label>
+                            <input asp-for="IssueModel.Name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required="" placeholder="Enter name">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="IssueModel.Description">Description</label>
+                            <textarea asp-for="IssueModel.Description" class="form-control" required="" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-group">
+                                @Html.HiddenFor(model => model.SearchUserModel.Id)
+
+                                <div class="form-group">
+                                    <label>Select user</label>
+
+                                    @Html.DropDownListFor(model => model.SearchUserModel.SelectedUsers,
+                                    new SelectList(Model.SearchUserModel.Users, "Id", "Email"),
+                                    new { id = "selectUserDropDown" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col text-center">
+                                <button type="submit" class="btn btn-cyan" value="submit">Create</button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p>
+                                <a asp-action="ShowTable" asp-controller="Project" asp-all-route-data='new Dictionary<string,string> { {"ProjectId",Model.ProjectId.ToString() }}'>Go to project</a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+
+    <script>
+        $(function () {
+            $("#selectUsersDropDown").chosen();
+        });
+    </script>
+}
