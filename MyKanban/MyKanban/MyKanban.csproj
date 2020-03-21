@@ -18,12 +18,12 @@
 
   <ItemGroup>
     <Folder Include="Views\Issue\" />
-    <Folder Include="Views\Project\" />
   </ItemGroup>
 
 
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 

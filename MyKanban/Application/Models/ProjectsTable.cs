@@ -4,7 +4,7 @@ namespace Application.Models
 {
     public class ProjectsTable
     {
-        //public List<ProjectModelToTable> projects { get; set; }
-        //public PageInfo PageInfo { get; set; }
+        public List<ProjectModelToTable> projects { get; set; }
+        public PageInfo  PageInfo { get; set; }
     }
 }

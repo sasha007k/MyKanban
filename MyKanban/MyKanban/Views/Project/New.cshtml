@@ -1,0 +1,59 @@
+﻿@model Application.Models.ProjectAndSearchModel;
+
+@{
+    ViewData["Title"] = "New project";
+}
+
+<form asp-controller="Project" asp-action="NewProject">
+    <div class="cotainer">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">New project</div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label asp-for="ProjectModel.Name">Name</label>
+                            <input asp-for="ProjectModel.Name" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required="" placeholder="Enter name">
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ProjectModel.Description">Description</label>
+                            <textarea asp-for="ProjectModel.Description" class="form-control" required="" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="form-group">
+                                @Html.HiddenFor(model => model.SearchUserModel.Id)
+
+                                <div class="form-group">
+                                    <label>Select users</label>
+
+                                    @Html.ListBoxFor(model => model.SearchUserModel.SelectedUsers,
+                                    new MultiSelectList(Model.SearchUserModel.Users, "Id", "Email"),
+                                    new { id = "selectUsersDropDown", multiple = "multiple" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col text-center">
+                                <button type="submit" class="btn btn-cyan" value="submit">Create</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+
+    <script>
+        $(function () {
+            $("#selectUsersDropDown").chosen({
+                width : "100%"
+            });
+        });
+    </script>
+}

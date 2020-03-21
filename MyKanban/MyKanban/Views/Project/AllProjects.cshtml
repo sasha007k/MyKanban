@@ -1,0 +1,144 @@
+﻿@model Application.Models.ProjectsTable;
+@using Application.Models;
+@{
+    ViewData["Title"] = "AllProjects";
+}
+
+@using (Html.BeginForm("AllProjects", "Project", FormMethod.Get))
+{
+    <div class="form-inline m-3 p-2 bg-light rounded">
+        <div class="form-group m-2">
+            <label for="name" class="mr-2">Name</label>
+            <input type="text" class="form-control" placeholder="Name" id="name" name="Name" value="@(((ProjectSearchForTable)ViewData["Filter"]).Name)" />
+        </div>
+        <div class="form-group m-2">
+            <input type="hidden" class="form-control" placeholder="Name" id="hiddenorder" name="" value="@(((ProjectSearchForTable)ViewData["Filter"]).OrderBy)" />
+            <label for="orderby" class="mr-2">Order by</label>
+            <select class="form-control" id="orderBy" name="OrderBy">
+                <option value="None">None</option>
+                <option value="NameUp">Ascending</option>
+                <option value="NameDown">Descending</option>
+            </select>
+        </div>
+        <div class="form-group float-right m-2">
+            <button type="submit" class="btn blue-gradient tbbtn btn-sm">Apply Filters</button>
+        </div>
+    </div>
+}
+<table class="content-table table table-hover">
+    <thead>
+        <tr>
+            <th scope="col" style="text-align:center">Name</th>
+            <th scope="col" style="text-align:center">Owner</th>
+            <th scope="col" style="text-align:center">Progress</th>
+            <th scope="col" style="text-align:center"></th>
+        </tr>
+    </thead>
+    @foreach (var prj in Model.projects)
+    {
+        <tr style="text-align:center" ;>
+            <td>
+                <h3>
+                    @prj.Name
+                </h3>
+            </td>
+            <td>
+                <h3>
+                    @prj.Owner
+                </h3>
+            </td>
+            <td>
+                <div class="progress md-progress" style="height: 25px">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: @prj.Percentage%; height: 25px" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">@prj.DoneIssues/@prj.Issues</div>
+                </div>
+            </td>
+            <td>
+                <button class="btn btn-outline-primary  btn-rounded waves-effect btn-sm" onclick="location.href='@Url.Action("ShowTable", "Project", new { ProjectId = prj.ProjectId })'">
+                    <i class="far fa-gem mr-2"
+                       aria-hidden="true"></i>Board
+                </button>
+            </td>
+        </tr>
+    }
+</table>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="d-flex justify-content-center">
+        <nav aria-label="Page navigation example" class="paginate">
+            <ul class="pagination">
+                @if (Model.PageInfo.PageNumber == 1)
+                {
+                    if (@Model.PageInfo.TotalPages == 1 || @Model.PageInfo.TotalPages == 0)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" style="float:left; background-color: hsl(0, 0%, 93%);">
+                                @Model.PageInfo.PageNumber
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            <a class="page-link" style="float:left; background-color: hsl(0, 0%, 93%);">
+                                @Model.PageInfo.PageNumber
+                            </a>
+                            <a class="page-link" style="float:left" ; href="@Url.Action("AllProjects", new { Page = @Model.PageInfo.TotalPages, Name = ((ProjectSearchForTable)ViewData["Filter"]).Name, orderBy = ((ProjectSearchForTable)ViewData["Filter"]).OrderBy })">
+                                @(Model.PageInfo.PageNumber + 1)
+                            </a>
+                            <a class="page-link" style="float:left" ; href="@Url.Action("AllProjects", new { Page = Model.PageInfo.TotalPages, Name = ((ProjectSearchForTable)ViewData["Filter"]).Name, orderBy = ((ProjectSearchForTable)ViewData["Filter"]).OrderBy })">
+                                &raquo;
+                            </a>
+                        </li>
+                    }
+
+                }
+                else if (Model.PageInfo.PageNumber == Model.PageInfo.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" style="float:left;" href="@Url.Action("AllProjects", new { Page = 1, Name = ((ProjectSearchForTable)ViewData["Filter"]).Name, orderBy = ((ProjectSearchForTable)ViewData["Filter"]).OrderBy })">
+                            &laquo;
+                        </a>
+                        <a class="page-link" style="float:left" ; href="@Url.Action("AllProjects", new { Page = @Model.PageInfo.PageNumber - 1, Name = ((ProjectSearchForTable)ViewData["Filter"]).Name, orderBy = ((ProjectSearchForTable)ViewData["Filter"]).OrderBy })">
+                            @(Model.PageInfo.PageNumber - 1)
+                        </a>
+                        <a class="page-link" style="float:left; background-color: hsl(0, 0%, 93%);">
+                            @Model.PageInfo.PageNumber
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" style="float:left;" href="@Url.Action("AllProjects", new { Page = 1,  Name = ((ProjectSearchForTable)ViewData["Filter"]).Name, orderBy = ((ProjectSearchForTable)ViewData["Filter"]).OrderBy })">
+                            &laquo;
+                        </a>
+                        <a class="page-link" style="float:left" ; href="@Url.Action("AllProjects", new { Page = @Model.PageInfo.PageNumber - 1,Name = ((ProjectSearchForTable)ViewData["Filter"]).Name, orderBy = ((ProjectSearchForTable)ViewData["Filter"]).OrderBy })">
+                            @(Model.PageInfo.PageNumber - 1)
+                        </a>
+                        <a class="page-link" style="float:left; background-color: hsl(0, 0%, 93%);">
+                            @Model.PageInfo.PageNumber
+                        </a>
+                        <a class="page-link" style="float:left" ; href="@Url.Action("AllProjects", new { Page = @Model.PageInfo.PageNumber + 1, Name = ((ProjectSearchForTable)ViewData["Filter"]).Name, orderBy = ((ProjectSearchForTable)ViewData["Filter"]).OrderBy })">
+                            @(Model.PageInfo.PageNumber + 1)
+                        </a>
+                        <a class="page-link" style="float:left;" href="@Url.Action("AllProjects", new { Page = Model.PageInfo.TotalPages, Name = ((ProjectSearchForTable)ViewData["Filter"]).Name, orderBy = ((ProjectSearchForTable)ViewData["Filter"]).OrderBy })">
+                            &raquo;
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+}
+
+<script>
+    var value=document.getElementById('hiddenorder').value;
+    var trends = document.getElementById('orderBy'), trend, i;
+    for (i = 0; i < trends.length; i++) {
+        trend = trends[i];
+        if (trend.value === value) {
+            trend.setAttribute("selected","selected");
+        }
+    }
+</script>
