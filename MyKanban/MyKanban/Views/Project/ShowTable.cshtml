@@ -1,0 +1,226 @@
+﻿@model Application.Models.ProjectViewModel;
+@{
+    ViewData["Title"] = "ShowTable";
+}
+
+<link href="@Url.Content(@"~/css/boardColomn.css")" rel="stylesheet" type="text/css" />
+
+<br />
+
+
+<menu class="kanban">
+    <div class="d-inline-block">
+
+    </div>
+    <div style="margin-left:8px" class="custom-control custom-radio custom-control-inline">
+        <input type="radio" onclick="All()" checked="checked" class="custom-control-input" id="defaultInline1" name="inlineDefaultRadiosExample">
+        <label class="custom-control-label" for="defaultInline1">All Issues</label>
+    </div>
+
+    <div style="margin-left:8px" class="custom-control custom-radio custom-control-inline">
+
+        <input type="radio" onclick="My()" class="custom-control-input" id="defaultInline2" name="inlineDefaultRadiosExample">
+        <label class="custom-control-label" for="defaultInline2">My Issues</label>
+
+    </div>
+    <button class="viewkanban"><i class="material-icons ">view_column</i></button>
+    <button class="viewlist"><i class="material-icons">view_list</i></button>
+    <button onclick="location.href='@Url.Action("NewIssue", "Issue", new { projectId = Model.ProjectId})'"><i class="material-icons">playlist_add</i> New task</button>
+
+</menu>
+
+
+<div class="dd my">
+    <ol class="kanban To-do">
+        <div class="kanban__title">
+            <h2><i class="material-icons">report_problem</i> To Do</h2>
+        </div>
+        <div class="dd-item fixer"></div>
+        @foreach (var item in Model.Issuess.Where(i => i.User != null && i.User.Email == User.Identity.Name))
+        {
+            @if (item.Status == Domain.Entities.Status.ToDo)
+            {
+                <li class="dd-item">
+                    <p class="title dd-handle" style="font-size: 18px"><i class=" material-icons ">filter_none</i>@item.Name</p>
+                    <div class="text" contenteditable="false">
+                        @item.Description
+                        @*<hr>*@
+                        @*<p>  <b>user:</b>@item.User </p>*@
+
+
+                    </div>
+                </li>
+            }
+        }
+    </ol>
+    <ol class="kanban progress">
+        <div class="kanban__title">
+            <h2><i class="material-icons">build</i> In Progress</h2>
+        </div>
+        <div class="dd-item fixer"></div>
+        @foreach (var item in Model.Issuess.Where(i => i.User != null && i.User.Email == User.Identity.Name))
+        {
+            @if (item.Status == Domain.Entities.Status.InProgress)
+            {
+                <li class="dd-item">
+                    <p class="title dd-handle" style="font-size: 18px"><i class=" material-icons ">filter_none</i>@item.Name</p>
+                    <div class="text" contenteditable="false">
+                        @item.Description
+                        @*<hr>*@
+                        @*<p>  <b>user:</b>@item.User </p>*@
+                    </div>
+
+
+                </li>
+            }
+        }
+
+    </ol>
+    <ol class="kanban  Done">
+
+        <h2><i class="material-icons">check_circle</i>  Reviewing</h2>
+        <div class="dd-item fixer"></div>
+        @foreach (var item in Model.Issuess.Where(i => i.User != null && i.User.Email == User.Identity.Name))
+        {
+            @if (item.Status == Domain.Entities.Status.Reviewing)
+            {
+                <li class="dd-item">
+                    <p class="title dd-handle" style="font-size: 18px"><i class=" material-icons ">filter_none</i>@item.Name</p>
+                    <div class="text" contenteditable="false">
+                        @item.Description
+                        @*<hr>*@
+                        @*<p>  <b>user:</b>@item.User </p>*@
+
+                    </div>
+
+
+                </li>
+            }
+        }
+
+    </ol>
+    <ol class="kanban Gone">
+        <h2><i class="material-icons">delete</i>  Done</h2>
+        <div class="dd-item fixer"></div>
+        @foreach (var item in Model.Issuess.Where(i => i.User != null && i.User.Email == User.Identity.Name))
+        {
+            @if (item.Status == Domain.Entities.Status.Done)
+            {
+                <li class="dd-item">
+                    <p class="title dd-handle" style="font-size: 18px"><i class=" material-icons ">filter_none</i>@item.Name</p>
+                    <div class="text" contenteditable="false">
+                        @item.Description
+                        @*<hr>
+                            <p>  <b>user:</b>@item.User </p>*@
+                    </div>
+                </li>
+            }
+        }
+
+
+    </ol>
+</div>
+
+
+<div class="dd all">
+    <ol class="kanban To-do">
+        <div class="kanban__title">
+            <h2><i class="material-icons">report_problem</i> To Do</h2>
+        </div>
+        <div class="dd-item fixer"></div>
+        @foreach (var item in Model.Issuess)
+        {
+            @if (item.Status == Domain.Entities.Status.ToDo)
+            {
+                <li class="dd-item">
+                    <p class="title dd-handle" style="font-size: 18px"><i class=" material-icons ">filter_none</i>@item.Name</p>
+                    <div class="text" contenteditable="false">
+                        @item.Description
+                        @*<hr>
+                            <p>  <b>user:</b>@item.User </p>*@
+                    </div>
+                </li>
+            }
+        }
+    </ol>
+    <ol class="kanban progress">
+        <div class="kanban__title">
+            <h2><i class="material-icons">build</i> In Progress</h2>
+        </div>
+
+        <div class="dd-item fixer"></div>
+        @foreach (var item in Model.Issuess)
+        {
+            @if (item.Status == Domain.Entities.Status.InProgress)
+            {
+                <li class="dd-item">
+                    <p class="title dd-handle" style="font-size: 18px"><i class=" material-icons ">filter_none</i>@item.Name</p>
+                    <div class="text" contenteditable="false">
+                        @item.Description
+                        @*<hr>
+                            <p>  <b>user:</b>@item.User </p>*@
+
+                    </div>
+
+
+                </li>
+            }
+        }
+
+    </ol>
+    <ol class="kanban  Done">
+        <h2><i class="material-icons">check_circle</i>  Reviewing</h2>
+        <div class="dd-item fixer"></div>
+        @foreach (var item in Model.Issuess)
+        {
+            @if (item.Status == Domain.Entities.Status.Reviewing)
+            {
+                <li class="dd-item">
+                    <p class="title dd-handle" style="font-size: 18px"><i class=" material-icons ">filter_none</i>@item.Name</p>
+
+                    <div class="text" contenteditable="false">
+                        @item.Description
+                        @*<hr>
+                            <p>  <b>user:</b>@item.User </p>*@
+
+                    </div>
+
+
+                </li>
+            }
+        }
+
+    </ol>
+    <ol class="kanban Gone">
+        <h2><i class="material-icons">delete</i>  Done</h2>
+        <div class="dd-item fixer"></div>
+        @foreach (var item in Model.Issuess)
+        {
+            @if (item.Status == Domain.Entities.Status.Done)
+            {
+                <li class="dd-item">
+                    <p class="title dd-handle" style="font-size: 18px"><i class=" material-icons ">filter_none</i>@item.Name</p>
+                    <div class="text" contenteditable="false">
+                        @item.Description
+                        @*<hr>
+                            <p>  <b>user:</b>@item.User </p>*@
+                    </div>
+                </li>
+            }
+        }
+
+
+    </ol>
+</div>
+
+<div id="fixer">
+
+</div>
+
+@section Scripts{
+
+    <script>
+        $(".all").show();
+        $(".my").hide();
+    </script>
+}

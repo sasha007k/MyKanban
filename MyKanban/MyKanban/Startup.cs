@@ -69,9 +69,8 @@ namespace MyKanban
             //---Applying Services
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
-            //services.AddScoped<IAdminService, AdminService>();
-            //services.AddScoped<IProjectService, ProjectService>();
-            //services.AddScoped<IIssueService, IssueService>();
+            services.AddScoped<IProjectService, ProjectService>();
+            services.AddScoped<IIssueService, IssueService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -101,7 +100,7 @@ namespace MyKanban
                 routes.MapRoute(
                     name: "Default",
                     template: "{controller}/{action}/{id?}",
-                    defaults: new { controller = "Auth", action = "Login" });
+                    defaults: new { controller = "Project", action = "AllProjects" });
             });
         }
     }

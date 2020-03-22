@@ -47,6 +47,29 @@ namespace KanbanAspServer.Controllers
             return this.RedirectToAction("AllProjects", projectParams);
         }
 
-     
+        public async Task<IActionResult> ShowTable([FromQuery]GetProjectInfoParams projectparams)
+        {
+            if (projectparams != null)
+            {
+                projectparams.UserName = this.User.Identity.Name;
+                ProjectViewModel model = await this.projectservice.GetProjectInfo(projectparams);
+                model.Issuess = await this.issueservice.GetIssuseList(projectparams.ProjectId);
+                return this.View(model);
+            }
+
+            return this.View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AllProjects(ProjectSearchForTable projectparams)
+        {
+            if (projectparams != null)
+            {
+                projectparams.UserName = this.User.Identity.Name;
+                this.ViewData["Filter"] = projectparams;
+            }
+
+            return this.View(await this.projectservice.GetAllProjects(projectparams));
+        }
     }
 }

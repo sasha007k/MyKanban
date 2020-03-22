@@ -14,7 +14,7 @@ namespace Domain.Entities
         public int UserId { get; set; }
         public User User { get; set; }
 
-        private Team()
+        public Team()
         {
 
         }

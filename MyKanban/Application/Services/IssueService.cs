@@ -35,7 +35,7 @@ namespace Application.Services
             var users = new List<User>();
             foreach (var id in uniqueUsersId)
             {
-                users.Add(await _usermanager.FindByIdAsync(id));
+                users.Add(await _usermanager.FindByIdAsync(id.ToString()));
             }
 
             return users;
