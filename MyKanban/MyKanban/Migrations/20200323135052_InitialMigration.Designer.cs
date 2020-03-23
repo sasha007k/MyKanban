@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MyKanban.Migrations
 {
     [DbContext(typeof(KanbanContext))]
-    [Migration("20200312174449_Init")]
-    partial class Init
+    [Migration("20200323135052_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,13 +63,11 @@ namespace MyKanban.Migrations
                         .IsRequired()
                         .HasMaxLength(30);
 
-                    b.Property<int>("UserId");
-
-                    b.Property<string>("UserId1");
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Projects");
                 });
@@ -82,15 +80,13 @@ namespace MyKanban.Migrations
 
                     b.Property<int>("ProjectId");
 
-                    b.Property<int>("UserId");
-
-                    b.Property<string>("UserId1");
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProjectId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Teams");
                 });
@@ -280,7 +276,7 @@ namespace MyKanban.Migrations
                 {
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Domain.Entities.Team", b =>
@@ -292,7 +288,7 @@ namespace MyKanban.Migrations
 
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

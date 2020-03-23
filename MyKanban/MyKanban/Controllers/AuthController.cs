@@ -31,8 +31,7 @@ namespace MyKanban.Controllers
                 var result = await this.authService.SignIn(loginmodel);
                 if (result.Succeeded)
                 {
-                    return this.RedirectToAction("Profile", "User");
-                    //return this.RedirectToAction("AllProjects", "Project");
+                    return this.RedirectToAction("AllProjects", "Project");
                 }
                 else
                 {
@@ -66,8 +65,7 @@ namespace MyKanban.Controllers
                 {
                     if ((await this.authService.Register(model)).Succeeded)
                     {
-                        return this.RedirectToAction("Profile", "User");
-                        //return this.RedirectToAction("AllProjects", "Project");
+                        return this.RedirectToAction("AllProjects", "Project");
                     }
                 }
             }

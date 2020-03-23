@@ -100,7 +100,7 @@ namespace Application.Services
             {
                 Name = model.ProjectModel.Name,
                 Description = model.ProjectModel.Description,
-                UserId = Convert.ToInt32(user.Id)
+                UserId = user.Id
             };
 
 
@@ -115,7 +115,7 @@ namespace Application.Services
                     var member = new Team()
                     {
                         ProjectId = project.Id,
-                        UserId = Convert.ToInt32(item.Id)
+                        UserId = item.Id
                     };
                     await _dbcontext.Teams.AddAsync(member);
                 }
@@ -140,9 +140,9 @@ namespace Application.Services
                         ProjectId = p.Id,
                         Name = p.Name,
                         Owner = p.User.Email,
-                        Issues = p.Issues.Count(i => i.UserId == t.UserId.ToString()),
-                        DoneIssues = p.Issues.Count(i => i.Status == Status.Done && i.UserId == t.UserId.ToString()),
-                        UserIdWhoView = t.UserId.ToString()
+                        Issues = p.Issues.Where(i => i.UserId == t.UserId).Count(),
+                        DoneIssues = p.Issues.Where(i => i.Status == Status.Done && i.UserId == t.UserId).Count(),
+                        UserIdWhoView = t.UserId
                     })
                     .Where(p => p.UserIdWhoView == user.Id)
                     .ToListAsync();
